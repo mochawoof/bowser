@@ -133,6 +133,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bowser.ico" />
+    <None Include="Resources\Silk_arrow_left.png" />
+    <None Include="Resources\Silk_arrow_right.png" />
+    <None Include="Resources\Silk_arrow_refresh.png" />
+    <None Include="Resources\bookmark_add.png" />
+    <None Include="Resources\info.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.Web.WebView2.1.0.3856.49\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.3856.49\build\Microsoft.Web.WebView2.targets')" />

@@ -26,15 +26,32 @@ namespace bowser
             InitializeComponent();
             fetchAutocomplete();
             setupAutocomplete();
-            webView21.CoreWebView2InitializationCompleted += WebView21_CoreWebView2InitializationCompleted;
             refreshBookmarks();
+            webView21.CoreWebView2InitializationCompleted += WebView21_CoreWebView2InitializationCompleted;
+            webView21.EnsureCoreWebView2Async();
         }
 
         private void WebView21_CoreWebView2InitializationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs e)
         {
-            webView21.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
-            webView21.CoreWebView2.FaviconChanged += CoreWebView2_FaviconChanged;
-            webView21.CoreWebView2.DocumentTitleChanged += CoreWebView2_DocumentTitleChanged;
+            webView21.CoreWebView2.NavigationStarting += (send, ev) =>
+            {
+                textBox1.Text = ev.Uri;
+                Cursor = Cursors.WaitCursor;
+            };
+            webView21.CoreWebView2.NavigationCompleted += (send, ev) =>
+            {
+                Cursor = Cursors.Default;
+            };
+            //webView21.CoreWebView2.FaviconChanged += CoreWebView2_FaviconChanged;
+            webView21.CoreWebView2.DocumentTitleChanged += (send, ev) =>
+            {
+                this.Text = webView21.CoreWebView2.DocumentTitle + " - bowser";
+            };
+            webView21.CoreWebView2.BasicAuthenticationRequested += (send, ev) =>
+            {
+                ev.Response.UserName = "";
+                ev.Response.Password = "";
+            };
         }
 
         private int getBookmarkIndexByUuid(string uuid) {
@@ -154,20 +171,6 @@ namespace bowser
                     makeAndAddBookmarkButton(i, bookmark);
                 }
             }
-        }
-
-        private void CoreWebView2_FaviconChanged(object sender, object e)
-        {
-            
-        }
-        private void CoreWebView2_DocumentTitleChanged(object sender, object e)
-        {
-            this.Text = webView21.CoreWebView2.DocumentTitle + " - bowser";
-        }
-
-        private void CoreWebView2_NavigationStarting(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
-        {
-            textBox1.Text = e.Uri;
         }
 
         public bool fetchAutocomplete() {
@@ -302,6 +305,11 @@ namespace bowser
         private void aboutButton_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            new Settings().ShowDialog();
         }
     }
 }

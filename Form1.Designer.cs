@@ -41,6 +41,7 @@
             this.forwardButton = new System.Windows.Forms.ToolStripButton();
             this.addBookmarkButton = new System.Windows.Forms.ToolStripButton();
             this.aboutButton = new System.Windows.Forms.ToolStripButton();
+            this.settingsButton = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -101,7 +102,8 @@
             this.toolStripSeparator1,
             this.addBookmarkButton,
             this.toolStripSeparator2,
-            this.aboutButton});
+            this.aboutButton,
+            this.settingsButton});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -170,6 +172,17 @@
             this.aboutButton.Text = "About";
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
+            // settingsButton
+            // 
+            this.settingsButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.settingsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.settingsButton.Image = global::bowser.Properties.Resources.Cog;
+            this.settingsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(23, 22);
+            this.settingsButton.Text = "Settings";
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -204,6 +217,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton aboutButton;
+        private System.Windows.Forms.ToolStripButton settingsButton;
     }
 }
 

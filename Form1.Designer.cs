@@ -34,12 +34,12 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.backButton = new System.Windows.Forms.ToolStripButton();
             this.reloadButton = new System.Windows.Forms.ToolStripButton();
             this.forwardButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addBookmarkButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutButton = new System.Windows.Forms.ToolStripButton();
             this.settingsButton = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
@@ -89,7 +89,6 @@
             this.webView21.Location = new System.Drawing.Point(0, 54);
             this.webView21.Name = "webView21";
             this.webView21.Size = new System.Drawing.Size(800, 396);
-            this.webView21.Source = new System.Uri("https://google.com", System.UriKind.Absolute);
             this.webView21.TabIndex = 0;
             this.webView21.ZoomFactor = 1D;
             // 
@@ -110,16 +109,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(800, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // backButton
             // 
@@ -151,6 +140,11 @@
             this.forwardButton.Text = "Forward";
             this.forwardButton.Click += new System.EventHandler(this.forwardButton_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
             // addBookmarkButton
             // 
             this.addBookmarkButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -160,6 +154,11 @@
             this.addBookmarkButton.Size = new System.Drawing.Size(23, 22);
             this.addBookmarkButton.Text = "Add Bookmark";
             this.addBookmarkButton.Click += new System.EventHandler(this.addBookmarkButton_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // aboutButton
             // 

@@ -33,5 +33,53 @@ namespace bowser.Properties {
                 this["bookmarks"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string proxyURL {
+            get {
+                return ((string)(this["proxyURL"]));
+            }
+            set {
+                this["proxyURL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string proxyUsername {
+            get {
+                return ((string)(this["proxyUsername"]));
+            }
+            set {
+                this["proxyUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string proxyPassword {
+            get {
+                return ((string)(this["proxyPassword"]));
+            }
+            set {
+                this["proxyPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int searchEngine {
+            get {
+                return ((int)(this["searchEngine"]));
+            }
+            set {
+                this["searchEngine"] = value;
+            }
+        }
     }
 }

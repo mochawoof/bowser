@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualBasic;
+using Microsoft.Web.WebView2.Core;
 using SharpCompress.Archives;
 using SharpCompress.Archives.GZip;
 using SharpCompress.Common;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
@@ -28,7 +30,15 @@ namespace bowser
             setupAutocomplete();
             refreshBookmarks();
             webView21.CoreWebView2InitializationCompleted += WebView21_CoreWebView2InitializationCompleted;
-            webView21.EnsureCoreWebView2Async();
+
+            loadWebViewBcSTUPIDASYNC();
+        }
+
+        private async void loadWebViewBcSTUPIDASYNC()
+        {
+            CoreWebView2EnvironmentOptions options = new CoreWebView2EnvironmentOptions();
+            options.AdditionalBrowserArguments = ((!Properties.Settings.Default.proxyURL.Equals("") ? "--proxy-server=" + Properties.Settings.Default.proxyURL : ""));
+            webView21.EnsureCoreWebView2Async(await CoreWebView2Environment.CreateAsync(null, null, options));
         }
 
         private void WebView21_CoreWebView2InitializationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs e)
@@ -52,6 +62,23 @@ namespace bowser
                 ev.Response.UserName = "";
                 ev.Response.Password = "";
             };
+            webView21.Source = new Uri((Properties.Settings.Default.searchEngine == 0 ? "https://google.com" : (Properties.Settings.Default.searchEngine == 1 ? "https://duckduckgo.com" : "https://bing.com")));
+        }
+
+        public void clearBookmarks() {
+            Collection<ToolStripItem> toRemove = new Collection<ToolStripItem>();
+
+            for (int i = 0; i < toolStrip1.Items.Count; i++) {
+                ToolStripItem item = toolStrip1.Items[i];
+                if (item.Tag != null && item.Tag.Equals("bookmark"))
+                {
+                    toRemove.Add(item);
+                }
+            }
+            
+            for (int i = 0; i < toRemove.Count; i++) {
+                toolStrip1.Items.Remove(toRemove[i]);
+            }
         }
 
         private int getBookmarkIndexByUuid(string uuid) {
@@ -91,6 +118,7 @@ namespace bowser
             }
 
             ToolStripSplitButton bookmarkButton = new ToolStripSplitButton(bookmark);
+            bookmarkButton.Tag = "bookmark";
             bookmarkButton.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
 
             try
@@ -103,13 +131,22 @@ namespace bowser
             }
 
             bool opening = false;
-            bookmarkButton.Click += (sender, e) =>
+
+            bookmarkButton.MouseUp += (sender, e) =>
             {
-                if (!opening) {
-                    textBox1.Text = url;
-                    go();
+                if (e.Button == MouseButtons.Right)
+                {
+                    bookmarkButton.ShowDropDown();
+                } else if (e.Button == MouseButtons.Left)
+                {
+                    if (!opening)
+                    {
+                        textBox1.Text = url;
+                        go();
+                    }
                 }
             };
+
             bookmarkButton.DropDownOpening += (sender, e) =>
             {
                 opening = true;
@@ -161,6 +198,7 @@ namespace bowser
         }
         private void refreshBookmarks()
         {
+            clearBookmarks();
             StringCollection bookmarks = Properties.Settings.Default.bookmarks;
             if (bookmarks != null)
             {
@@ -224,12 +262,18 @@ namespace bowser
 
         private void go()
         {
-            
-            if (!DomainEndings.checkIfIn(textBox1.Text)) {
-                textBox1.Text = "https://google.com/search?q=" + textBox1.Text;
-            } else if (!textBox1.Text.StartsWith("http://") && !textBox1.Text.StartsWith("https://"))
+
+            if (!textBox1.Text.StartsWith("http://") && !textBox1.Text.StartsWith("https://"))
             {
-                textBox1.Text = "http://" + textBox1.Text;
+                // we have to guess what website
+                if (!DomainEndings.checkIfIn(textBox1.Text))
+                {
+                    textBox1.Text = (Properties.Settings.Default.searchEngine == 0 ? "https://google.com/search?q=" : (Properties.Settings.Default.searchEngine == 1 ? "https://duckduckgo.com/search?q=" : "https://bing.com/search?q=")) + textBox1.Text;
+                }
+                else
+                {
+                    textBox1.Text = "http://" + textBox1.Text;
+                }
             }
 
             try
@@ -309,7 +353,7 @@ namespace bowser
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            new Settings().ShowDialog();
+            new Settings(this);
         }
     }
 }

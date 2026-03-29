@@ -45,6 +45,7 @@ namespace bowser
                 Properties.Settings.Default.Reset();
                 Properties.Settings.Default.bookmarks = bookmarks;
                 Properties.Settings.Default.Save();
+                Dispose();
             }
         }
 
